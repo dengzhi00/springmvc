@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script src="http://localhost:8088/springmvc/resources/js/jquery/jquery.min.js"></script>
+
+</head>
+<body>
+<div><button onclick="ajaxGetKid();">111</button></div>
+<div id="add"></div>
+</body>
+<script>
+function ajaxGetKid(){
+	alert(1);
+	$.ajax({
+		data:"{}",
+		type:"GET",
+		url:"http://localhost:8088/springmvc/ajax",
+		async:"true",
+		success:function(data){
+			$("#add").html(data);
+		},
+		error:function(data){
+			alert(1);
+		}
+	});
+}
+
+</script>
+</html>

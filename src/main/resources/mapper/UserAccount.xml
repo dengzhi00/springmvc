@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuansq.author.dao.UserAccountDAO">
+ <!-- <typeAliases>
+<typeAlias alias="userAccount" type="com.yuansq.test.server.author.dto.UserAccount"/>
+</typeAliases>   -->
+<!-- 	 <resultMap id="UserAccount" type="com.yuansq.test.server.author.dto.UserAccount">
+		<id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+		<result column="PWD" property="pwd" jdbcType="VARCHAR" />
+		<result column="STATE" property="state" jdbcType="VARCHAR" />
+	</resultMap>  -->
+	<select id="queryAccount" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		SELECT * FROM USER_ACCOUNT T WHERE T.STATE=#{state,jdbcType=VARCHAR}
+
+		<if test="userName!='' and userName!=null">
+			and T.USER_NAME=#{userName,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<insert id="addAccount" parameterType="com.yuansq.author.dto.UserAccount">
+		<selectKey resultType="java.lang.Integer" order="BEFORE"
+			keyProperty="userId">
+			SELECT SEQ_USER_ACCOUNT.NEXTVAL as id FROM DUAL
+		</selectKey>
+		insert into USER_ACCOUNT
+		(USER_ID, USER_NAME,NICK_NAME,PWD,STATE)
+		values (
+		#{userId},
+		#{userName},
+		#{nickName},
+		#{pwd},
+		#{state}
+		<!-- #{id,jdbcType=DECIMAL},
+		#{userName,jdbcType=VARCHAR},
+		#{nickName,jdbcType=VARCHAR},
+		#{pwd,jdbcType=VARCHAR},
+		#{state,jdbcType=VARCHAR} -->
+		)
+	</insert>
+</mapper> 

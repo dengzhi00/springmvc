@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- jQuery -->
+	<script src="http://localhost:8088/springmvc/resources/js/jquery/jquery.min.js"></script>
+</head>
+<body>
+<div><a onclick="getKid();">click</a></div>
+<div id="body"></div>
+<div style="width:1000px; height:1000px; overflow:auto; border:1px solid #000000;" >
+输入原金额
+<input id="pa" type="text" value=""/>
+输入调整金额
+<input id="pb" type="text" value=""/>
+<a onclick="add()">加法</a>
+结果
+</div>
+<div><a onclick="f1();">f1</a></div>
+<script>
+function getKid(){
+	
+	$.ajax({
+		url: "http://localhost:8088/springmvc/hello2",
+		json:"{}",
+		type:"post",
+		success: function(data){
+        $("#body").html(data);
+      }});
+}
+var a="+30";
+var b="-30.2";
+
+function add(){
+var eb=document.getElementById("pb");
+b=$.trim((eb.value==null?0:eb.value))*1;
+var ea=document.getElementById("pa");
+a=$.trim((ea.value==null?0:ea.value))*1;
+if(!/^(([-|+]?[1-9]{1}\d*(\.\d{1,2})?)|[-|+]?((0\.\d[1-9])|(0\.[1-9]\d?)))$/.test(b)){
+            $.alert("提示", "请输入有效的调整费用(小数点后最多两位,如:-18.88(该项目减少18.88元),+18.88或者18.88(该项目增加18.88元))");
+            return;
+        }
+if((b+a)<0)
+{alert("调整后金额不能小于0！");
+ return;
+}
+
+alert(a+"+"+b+"="+(a+b));
+a=a*100;
+alert(a);
+}
+function f1(){
+try{
+var a=c.a.b!=undefined||c.a.b!=null?c.a.b:0;
+alert(a);}catch(e){alert(e);}
+}
+
+</script>
+</body>
+</html>

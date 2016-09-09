@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户注册</title>
+<link href="/demo/resources/js/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" />
+</head>
+
+<body ng-app="regApp">
+	<div ng-controller="regCtl">
+		<div class="col-md-6 col-md-offset-3" style="top: 100px">
+			<div class="login-panel panel-body" style="text-align: center">
+				<h3 style="color: blue">Wellcome Register!</h3>
+			</div>
+			<div align="center">
+				<form class="form-horizontal" role="form" name="eForm"
+					style="width: 80%">
+					<div class="control-group">
+						<label class="control-label"> 账号</label>
+						<div class="controls">
+							<input name="userName" ng-model="userName" type="text"
+								placeholder="必填项" class="input-xlarge" required
+								ng-change="checkUserName()">
+						</div>
+						<div><span>{{errInfo}}</span></div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"> 昵称</label>
+						<div class="controls">
+							<input id="nickName" name="nickName" ng-model="nickName"
+								type="text" placeholder="必填项" class="input-xlarge" required>
+						</div>
+					</div>
+					<label class="control-label"> 密码</label>
+					<div class="controls">
+						<input name="pwd" type="password" placeholder="必填项"
+						ng-model="pwd"	class="input-xlarge" required>
+					</div>
+					<div class="control-group">
+						<label class="control-label"> 确认密码</label>
+						<div class="controls">
+							<input name="pwdConfirm" type="password" placeholder="必填项"ng-model="pwdConfirm"
+								class="input-xlarge" required>
+						</div>
+					</div>
+					<div>  <button ng-click="register()">注册</button><button ng-click="rest()">重置</button> </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<!-- jQuery -->
+<script src="/demo/resources/js/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/demo/resources/js/bootstrap/js/bootstrap.min.js"></script>
+<!-- Angular -->
+<script src="/demo/resources/js/angular/angular.min.js"></script>
+<script src="reg.js"></script>
+</html>

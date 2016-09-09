@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdas xmlns="http://www.asiainfo-linkage.com/schema/mdas-1.0">
+    <!-- 数据源配置begin -->
+	<mda>
+		<!-- 管理库数据源配置 -->
+		<const type="String" name="datasource.manage" value="jdbc/oracle/lte/manage/crmapplte" />
+	</mda>
+	<!-- 数据源配置end -->
+	 
+	   
+</mdas>

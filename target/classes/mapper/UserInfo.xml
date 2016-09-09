@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuansq.author.dao.UserAccountDAO">
+	<resultMap id="userInfo" type="com.yuansq.author.dto.UserInfo">
+		<id column="USER_ID" property="user_id" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+		<result column="SEX" property="sex" jdbcType="VARCHAR" />
+		<result column="TALL" property="tall" jdbcType="VARCHAR" />
+		<result column="WEIGHT" property="weight" jdbcType="VARCHAR" />
+		<result column="AGE" property="age" jdbcType="VARCHAR" />
+		<result column="AREA" property="area" jdbcType="VARCHAR" />
+		<result column="STATE" property="state" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="queryUser" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		SELECT * FROM USER_INFO T WHERE T.STATE=1
+
+		<if test="name!='' and name!=null">
+			and T.name=#{name,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<insert id="addUser" parameterType="java.util.HashMap">
+		
+		insert into USER_INFO (USER_ID, NAME,
+		BIRTHDAY, SEX, TALL,WEIGHT,AGE,AREA,STATE,PWD)
+		values (
+		#{id,jdbcType=DECIMAL},
+		#{name,jdbcType=VARCHAR},
+		to_date(#{birthday,jdbcType=VARCHAR},'YYYY/MM/DD'),
+		#{sex,jdbcType=VARCHAR},
+		#{tall,jdbcType=VARCHAR},
+		#{weight,jdbcType=VARCHAR},
+		#{age,jdbcType=VARCHAR},
+		#{area,jdbcType=VARCHAR},
+		#{state,jdbcType=VARCHAR}
+		)
+	</insert>
+</mapper>

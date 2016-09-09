@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"  
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"  
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+       xmlns:cache="http://www.springframework.org/schema/cache"  
+       xsi:schemaLocation="  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx.xsd  
+    http://www.springframework.org/schema/jdbc  
+    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd  
+    http://www.springframework.org/schema/cache  
+    http://www.springframework.org/schema/cache/spring-cache.xsd  
+    http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop.xsd  
+    http://www.springframework.org/schema/util  
+    http://www.springframework.org/schema/util/spring-util.xsd">  
+	<!-- 扫描所有class将需要的bean进行依赖注入 -->
+  <context:component-scan base-package="com.yuansq.*.*" ></context:component-scan>  
+	<!-- 导入DAO配置 --> 
+	<!--数据库连接-->  
+	<context:property-placeholder location="classpath:properties/dataSource.properties"  ignore-unresolvable="true" />
+	<!-- 数据库配置文件位置 -->
+	  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/mySource</value>
+		</property>
+	</bean> 
+	<!--  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driverClass}"></property>
+		<property name="jdbcUrl" value="${storeDatabase}"></property>
+		<property name="user" value="${storeUser}"></property>
+		<property name="password" value="${storeUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>	  -->
+	<!-- MapperFactoryBean配置方式注意指定的映射器类mapperInterface必须是一个接口而不是具体的实现类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yuansq.*.dao" />
+	</bean>
+	<!-- 导入数据库配置 -配置mybitasSqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" depends-on="dataSource">
+		<property name="dataSource" ref="dataSource" />
+		 <!--指定实体类映射文件，可以指定同时指定某一包以及子包下面的所有配置文件，
+		 mapperLocations和configLocation有一个即可，当需要为实体类指定别名时，
+		 可指定configLocation属性，再在mybatis总配置文件中采用mapper引入实体类映射文件 -->
+       <property name="mapperLocations" value="classpath*:mapper/*.xml"/> 
+	</bean>
+
+	<!-- 导入事务配置 -->
+	<!-- 事务配置 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 配置参与事务的类 -->
+	<aop:config>
+		<aop:pointcut id="allServiceMethod" expression="execution(* com.yuansq.*.*.smo.*.*(..))" />
+		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="TxAdvice" />
+	</aop:config>
+
+	<!-- 使用声明方式配置事务 -->
+	<tx:advice id="TxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="insert*" propagation="REQUIRED"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="delete*" propagation="REQUIRED"
+				rollback-for="java.lang.Exception" />
+			<tx:method name="*" propagation="REQUIRED"
+				 rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<!--  -->
+	<bean id="freemarkerConfig"
+      class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <property name="templateLoaderPath" value="/WEB-INF/views/" />
+    <property name="freemarkerSettings">
+      <props>
+        <prop key="template_update_delay">0</prop>
+        <prop key="default_encoding">UTF-8</prop>
+        <prop key="number_format">0.##########</prop>
+        <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+        <prop key="classic_compatible">true</prop>
+        <prop key="template_exception_handler">ignore</prop>
+      </props>
+    </property>
+  </bean>
+  <!-- 当Spring容器启动完成后执行下面的这个Bean -->
+  <bean class="com.yuansq.controller.test"/>
+ </beans> 
+ <!-- 		<property name="configLocation" value="classpath:mybatis.xml"></property> 
+ -->

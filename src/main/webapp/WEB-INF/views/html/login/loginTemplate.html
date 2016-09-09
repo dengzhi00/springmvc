@@ -1,0 +1,74 @@
+<div class="col-md-6 col-md-offset-3" style="top: 100px">
+	<div class="login-panel panel panel-default">
+		<div class="login-panel panel-body" style="text-align: center">
+			<h3 style="color: blue">WELLCOME LOGIN!</h3>
+		</div>
+		<div align="center">
+			<form class="form-horizontal" role="form" name="eForm"
+				style="width: 80%">
+				<div class="form-group has-feedback">
+<!-- 					ng-class="{\has-success\:eForm.userName.$valid,\has-error\:eForm.userName.$invalid&&eForm.userName.$dirty}">
+ -->					<label for="userName" class="col-sm-2 control-label">用户名</label>
+					<div class="col-sm-6">
+						<input ng-model="userName" placeholder="用户名 /账号 /电话号 /邮箱"
+							name="userName" type="text" class="form-control" ng-minlength="2"
+							required="required"> <span ng-click="clearUserName()"
+							class="glyphicon  form-control-feedback glyphi">
+<!-- 							ng-class="{\glyphicon-ok\:eForm.userName.$valid,\glyphicon-remove\: eForm.userName.$invalid&&eForm.userName.$dirty}">
+ -->					</span></div>
+					<div class="col-sm-3">
+<!-- 						ng-show="eForm.userName.$invalid&&eForm.userName.$dirty||(userNameVerify==undefined?false:userNameVerify)">
+ -->						<span style="color: #ff4a0d"
+							ng-show="eForm.userName.$error.required">用户名不能为空</span><span
+							ng-show="eForm.userName.$error.minlength" style="color: #ff4a0d">用户名至少2位</span>
+					</div>
+				</div>
+				<div class="form-group has-feedback">
+<!-- 					ng-class="{\has-success\:eForm.pwd.$valid,\has-error\:eForm.pwd.$invalid&&eForm.pwd.$dirty}">
+ -->					<label for="pwd" class="col-sm-2 control-label">密&nbsp;&nbsp;&nbsp;码</label>
+					<div class="col-sm-6">
+						<input ng-model="pwd" placeholder="密码" ng-keyup="myKeyup($event)"
+							name="pwd" type="password" class="form-control" ng-minlength="6"
+							required="required"> <span
+							class="glyphicon  form-control-feedback glyphi">
+<!-- 							ng-class="{\glyphicon-ok\:eForm.pwd.$valid,\glyphicon-remove\: eForm.pwd.$invalid&&eForm.pwd.$dirty}">
+ -->				</span>	</div>
+					<div class="col-sm-3"
+						ng-show="eForm.pwd.$invalid&&eForm.pwd.$dirty||(pwdVerify==undefined?false:pwdVerify)">
+						<span style="color: #ff4a0d" ng-show="eForm.pwd.$error.required">密码不能为空</span>
+						<span ng-show="eForm.pwd.$error.minlength" style="color: #ff4a0d">密码至少6位</span>
+					</div>
+				</div>
+				<div class="form-group has-feedback">
+<!-- 					ng-class="{\has-success\:eForm.checkCode.$valid,\has-error\:eForm.checkCode.$invalid&&eForm.checkCode.$dirty}">
+ -->					<label for="checkCode" class="col-sm-2 control-label">验证码</label>
+					<div class="col-sm-6">
+						<input ng-model="checkCode" placeholder="验证码"
+							ng-keyup="myKeyup($event)" name="checkCode" type="text"
+							class="form-control" ng-minlength="6" ng-maxlength="6"
+							required="required">
+					</div >
+					<div class="control-label">
+						<span style="cursor: pointer;"><img style="width: 15%" 
+							ng-src="{{checkCodeImg}}" ng-click="changeCheckCode()" />&nbsp;&nbsp;&nbsp;</span>
+						<span style="width: 13%"
+							ng-show="eForm.checkCode.$invalid&&eForm.checkCode.$dirty||(checkCodeVerify==undefined?false:checkCodeVerify)">
+							<span style="color: #ff4a0d"
+							ng-show="eForm.checkCode.$error.required">验证码必填</span> <span
+							ng-show="eForm.checkCode.$error.minlength||eForm.checkCode.$error.maxlength" style="color: #ff4a0d">验证码错误</span>
+						</span></div></div>
+			</form>
+		
+	</div>
+	<div align="right">
+		<label> 没有账号？<a ng-click="register()" style="cursor: pointer">免费注册</a>
+		</label>
+	</div>
+	<div align="center">
+		<button ng-show="!loginState" ng-click="login()"
+			class="btn btn-lg btn-success btn-block" style="width: 50%">登录</button>
+		<img ng-show="loginState" ng-src="/springmvc/resources/images/loading.gif"
+			style="width: 20%" />
+	</div>
+</div>
+</div>
