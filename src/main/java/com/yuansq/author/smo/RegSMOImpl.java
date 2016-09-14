@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.yuansq.author.bmo.UserAccountBMO;
 import com.yuansq.author.bmo.UserInfoBMO;
-import com.yuansq.commom.CommonConstant;
+import com.yuansq.common.CommonConstant;
 
 @Service
 public class RegSMOImpl implements RegSMO {

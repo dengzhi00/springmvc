@@ -13,7 +13,7 @@ import java.util.Properties;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
-import com.yuansq.commom.MDA;
+import com.yuansq.common.MDA;
 
 public class PropertiesUtil {
 	
@@ -69,21 +69,21 @@ public class PropertiesUtil {
 		}
 		return pro;
 	}	/**
-	 * »ñÈ¡properties key ¶ÔÓ¦µÄÖµ
-	 * ²ÉÓÃMDAÍ³Ò»ÅäÖÃ£¬ËùÒÔ¸ÄÔìÔ­ÓĞµÄ¶ÁÈ¡·½·¨£¬ÅĞ¶ÏMDAÖĞÊÇ·ñÓĞÅäÖÃ¸ÃÊôĞÔ£¬Èç¹ûÓĞ£¬Ö±½Ó¶ÁÈ¡MDA£¬Èç¹ûÃ»ÓĞÔò¶ÁÈ¡Ô­À´µÄÅäÖÃ
+	 * ï¿½ï¿½È¡properties key ï¿½ï¿½Ó¦ï¿½ï¿½Öµ
+	 * ï¿½ï¿½ï¿½ï¿½MDAÍ³Ò»ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½Ô­ï¿½ĞµÄ¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½MDAï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½Ö±ï¿½Ó¶ï¿½È¡MDAï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½È¡Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param code
 	 *            key
 	 * @return String
 	 */
 	@SuppressWarnings("unchecked")
 	public String getMessage(String code) {
-		// java·´Éä±éÀúMDAÀàÖĞÊÇ·ñ´æÔÚ¸ÃÊôĞÔ
+		// javaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MDAï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½
 		boolean isHasProperty = false;
 		String propertyValue = "";
 		Map<String, String> propertyMap = new HashMap<String, String>();
 		Field[] fields = MDA.class.getDeclaredFields();
 		for (Field field : fields) {
-			// ±éÀúStringÀàĞÍÊôĞÔ
+			// ï¿½ï¿½ï¿½ï¿½Stringï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (field.getGenericType().equals(String.class)) {
 				if (code.equals(field.getName())) {
 					try {
@@ -96,7 +96,7 @@ public class PropertiesUtil {
 					isHasProperty = true;
 				}
 			}
-			// ±éÀúMapÀàĞÍÊôĞÔ
+			// ï¿½ï¿½ï¿½ï¿½Mapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (field.getGenericType().toString().equals("java.util.Map<java.lang.String, java.lang.String>")) {
 				try {
 					propertyMap = (Map<String, String>) field.get(new MDA());
@@ -117,16 +117,16 @@ public class PropertiesUtil {
 				break;
 			}
 		}
-		// ÅĞ¶ÏMDAÖĞÊÇ·ñÓĞÅäÖÃ¸ÃÊôĞÔ£¬Èç¹ûÓĞ£¬Ö±½Ó¶ÁÈ¡MDA£¬Èç¹ûÃ»ÓĞÔò¶ÁÈ¡Ô­À´µÄÅäÖÃ£¨×¢£ºÓ¦ÓÃÆô¶¯Ê±£¬MDA»¹Î´¼ÓÔØ£©
+		// ï¿½Ğ¶ï¿½MDAï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½Ö±ï¿½Ó¶ï¿½È¡MDAï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½È¡Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½×¢ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½MDAï¿½ï¿½Î´ï¿½ï¿½ï¿½Ø£ï¿½
 		if (isHasProperty && StringUtil.isNotBlank(propertyValue)) {
 			return propertyValue;
 		} else {
 			try {
 				return message.getMessage(code, null, null);
 			} catch (NoSuchMessageException e) {
-				//°ÑERROR¼¶±ğ¸ÄÎªINFO¼¶±ğ,ºöÂÔÎ´ÅäÖÃµÄ¼üÖµ¶Ô
+				//ï¿½ï¿½ERRORï¿½ï¿½ï¿½ï¿½ï¿½ÎªINFOï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ÃµÄ¼ï¿½Öµï¿½ï¿½
 				// 20140403 ignore this exception
-				//log.info("properties key²»´æÔÚ("+code+")", e);
+				//log.info("properties keyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½("+code+")", e);
 				return null;
 			}
 		}

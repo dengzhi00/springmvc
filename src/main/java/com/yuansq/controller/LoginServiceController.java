@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yuansq.author.smo.LoginSMO;
-import com.yuansq.commom.CommonConstant;
+import com.yuansq.common.CommonConstant;
 import com.yuansq.util.JsonUtil;
 
 @Controller

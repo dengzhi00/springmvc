@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.yuansq.author.dao.UserAccountDAO;
 import com.yuansq.author.dto.UserAccount;
-import com.yuansq.commom.CommonConstant;
-import com.yuansq.commom.ExceptionRecords;
+import com.yuansq.common.CommonConstant;
+import com.yuansq.common.ExceptionRecords;
 import com.yuansq.exception.BusinessException;
 
 @Service

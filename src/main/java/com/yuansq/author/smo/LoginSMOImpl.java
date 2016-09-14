@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 import com.yuansq.author.bmo.UserAccountBMO;
-import com.yuansq.commom.CommonConstant;
+import com.yuansq.common.CommonConstant;
 import com.yuansq.util.CheckCodeFactory;
 import com.yuansq.util.StringUtil;
 

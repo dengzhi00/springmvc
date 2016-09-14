@@ -28,7 +28,7 @@ public class MessageTempleteManager {
 	  return tplm.cfg.getTemplate(name);
 	 }
 	 
-	 public static String process(String templatefile, Map param) throws IOException, TemplateException{
+	 public static String process(String templatefile, Map<?, ?> param) throws IOException, TemplateException{
 	  Template template=MessageTempleteManager.getTemplate(templatefile);
 	  StringWriter sw = new StringWriter();
 	  template.process(param, sw);

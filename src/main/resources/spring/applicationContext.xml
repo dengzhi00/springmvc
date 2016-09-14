@@ -25,12 +25,13 @@
 	<!--数据库连接-->  
 	<context:property-placeholder location="classpath:properties/dataSource.properties"  ignore-unresolvable="true" />
 	<!-- 数据库配置文件位置 -->
-	  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+	   <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
 			<value>java:comp/env/mySource</value>
 		</property>
 	</bean> 
-	<!--  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<!--  本机 -->
+	<!--  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClass" value="${driverClass}"></property>
 		<property name="jdbcUrl" value="${storeDatabase}"></property>
 		<property name="user" value="${storeUser}"></property>
@@ -42,7 +43,7 @@
 		<property name="minPoolSize" value="${minPoolSize}"></property>
 		<property name="maxStatements" value="${maxStatements}"></property>
 		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
-	</bean>	  -->
+	</bean>	   -->
 	<!-- MapperFactoryBean配置方式注意指定的映射器类mapperInterface必须是一个接口而不是具体的实现类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.yuansq.*.dao" />

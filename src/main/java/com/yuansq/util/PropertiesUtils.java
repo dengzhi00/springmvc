@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
-import com.yuansq.commom.MDA;
+import com.yuansq.common.MDA;
 /**
  * properties 属性文件值读取
  * <P>
@@ -74,6 +74,7 @@ public class PropertiesUtils {
 	 *            key
 	 * @return String
 	 */
+	@SuppressWarnings("unchecked")
 	public String getMessage(String code) {
 		// java反射遍历MDA类中是否存在该属性
 		boolean isHasProperty = false;
